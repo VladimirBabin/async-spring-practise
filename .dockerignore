@@ -1,0 +1,17 @@
+# Git
+.git
+.gitignore
+
+# Gradle build artifacts and cache
+.gradle
+build/
+
+# IDE files
+.idea/
+*.iml
+*.iws
+
+# Build artifacts and logs from other tools
+out/
+logs/
+*.log
