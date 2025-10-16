@@ -15,4 +15,5 @@ public class Trade {
     private int productQuantity;
     private BigDecimal productBuyingPrice;
     private BigDecimal productSellingPrice;
+    // TODO: add createdDate
 }

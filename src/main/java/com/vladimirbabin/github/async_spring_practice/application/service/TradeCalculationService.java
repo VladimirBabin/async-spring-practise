@@ -34,6 +34,8 @@ public class TradeCalculationService implements TradeCalculationUseCase {
 
             return trades.stream()
                     .map(trade -> {
+
+                        // TODO: extract helper methods for readability
                         BigDecimal grossProfit = trade.getProductBuyingPrice()
                                 .multiply(
                                         BigDecimal
@@ -47,6 +49,9 @@ public class TradeCalculationService implements TradeCalculationUseCase {
 
                         List<Payment> tradePayments = paymentsByTradeId.get(trade.getId());
                         BigDecimal balance = BigDecimal.ZERO;
+
+                        // TODO: add handling of default
+                        // TODO: extract to a separate component
                         if (tradePayments != null) {
                             BigDecimal buyerPayments = tradePayments.stream()
                                     .filter(p -> p.getType() == PaymentType.BUYER)

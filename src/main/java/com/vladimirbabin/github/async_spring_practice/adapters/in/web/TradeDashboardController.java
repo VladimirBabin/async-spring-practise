@@ -17,6 +17,9 @@ public class TradeDashboardController {
 
     private final TradeCalculationUseCase tradeCalculationUseCase;
 
+    // TODO: add endpoint that checks which executors run or not. I.e. put threads into map and return. Easier with beans. Define thread name prefixes.
+    // Which threads are active, what kind of threads are blocking?
+
     @GetMapping("/trade-calculations")
     public CompletableFuture<List<TradeCalculationDto>> getTradeCalculations() {
         return tradeCalculationUseCase.getTradeCalculations();

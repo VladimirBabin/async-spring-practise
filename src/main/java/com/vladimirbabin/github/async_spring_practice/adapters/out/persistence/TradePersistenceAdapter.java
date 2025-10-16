@@ -16,6 +16,10 @@ public class TradePersistenceAdapter implements GetTradesPort {
 
     private final TradeRepository tradeRepository;
 
+    // TODO: try supply async with custom executor
+    // TODO: try flux in a separate git branch (return flux instead of CompletableFuture)
+    // executors? try different realisations of executors (simple, thread full task, etc.). Differs by settings that you define.
+    // Check how to create your own executors (put tasks in queue)
     @Async
     @Override
     public CompletableFuture<List<Trade>> getAllTrades() {
