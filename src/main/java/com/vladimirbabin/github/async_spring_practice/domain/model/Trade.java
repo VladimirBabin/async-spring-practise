@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -15,5 +16,8 @@ public class Trade {
     private int productQuantity;
     private BigDecimal productBuyingPrice;
     private BigDecimal productSellingPrice;
-    // TODO: add createdDate
+    private Integer createdBy;
+    private Integer modifiedBy;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 }

@@ -30,7 +30,7 @@ public class TradeEntity {
 
     private Long buyingAccountId;
 
-    private Long vendorAccountId;
+    private Long sellingAccountId;
 
     private String productName;
 
@@ -40,16 +40,16 @@ public class TradeEntity {
 
     private BigDecimal productSellingPrice;
 
+    @CreatedBy
+    private Long createdBy;
+
+    @LastModifiedBy
+    private Long modifiedBy;
+
     @CreatedDate
     private LocalDateTime createdDate;
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
-
-    @CreatedBy
-    private Integer createdBy;
-
-    @LastModifiedBy
-    private Integer modifiedBy;
 
 }

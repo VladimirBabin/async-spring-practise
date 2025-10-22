@@ -3,8 +3,8 @@ package com.vladimirbabin.github.async_spring_practice.application.service;
 import com.vladimirbabin.github.async_spring_practice.application.ports.out.GetPaymentsPort;
 import com.vladimirbabin.github.async_spring_practice.application.ports.out.GetTradesPort;
 import com.vladimirbabin.github.async_spring_practice.domain.dto.TradeCalculationDto;
-import com.vladimirbabin.github.async_spring_practice.domain.model.Payment;
-import com.vladimirbabin.github.async_spring_practice.domain.model.PaymentType;
+import com.vladimirbabin.github.async_spring_practice.domain.model.TradePayment;
+import com.vladimirbabin.github.async_spring_practice.domain.model.AccountType;
 import com.vladimirbabin.github.async_spring_practice.domain.model.Trade;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-class TradeCalculationServiceTest {
+class TradeCalculationsServiceTest {
 
     @Mock
     private GetTradesPort getTradesPort;
@@ -31,7 +31,7 @@ class TradeCalculationServiceTest {
     private GetPaymentsPort getPaymentsPort;
 
     @InjectMocks
-    private TradeCalculationService tradeCalculationService;
+    private TradeCalculationsService tradeCalculationsService;
 
     @Test
     void getTradeCalculations() throws ExecutionException, InterruptedException {
@@ -40,17 +40,17 @@ class TradeCalculationServiceTest {
         Trade trade2 = Trade.builder().id(2L).productQuantity(5).productBuyingPrice(BigDecimal.valueOf(200)).productSellingPrice(BigDecimal.valueOf(250)).build();
         List<Trade> trades = List.of(trade1, trade2);
 
-        Payment payment1 = Payment.builder().id(1L).tradeId(1L).type(PaymentType.BUYER).amount(BigDecimal.valueOf(1500)).paymentDate(LocalDate.now()).build();
-        Payment payment2 = Payment.builder().id(2L).tradeId(1L).type(PaymentType.VENDOR).amount(BigDecimal.valueOf(1000)).paymentDate(LocalDate.now()).build();
-        Payment payment3 = Payment.builder().id(3L).tradeId(2L).type(PaymentType.BUYER).amount(BigDecimal.valueOf(1000)).paymentDate(LocalDate.now()).build();
-        Payment payment4 = Payment.builder().id(4L).tradeId(2L).type(PaymentType.VENDOR).amount(BigDecimal.valueOf(1250)).paymentDate(LocalDate.now()).build();
-        List<Payment> payments = List.of(payment1, payment2, payment3, payment4);
+        TradePayment tradePayment1 = TradePayment.builder().id(1L).tradeId(1L).type(AccountType.BUYER).amount(BigDecimal.valueOf(1500)).paymentDate(LocalDate.now()).build();
+        TradePayment tradePayment2 = TradePayment.builder().id(2L).tradeId(1L).type(AccountType.VENDOR).amount(BigDecimal.valueOf(1000)).paymentDate(LocalDate.now()).build();
+        TradePayment tradePayment3 = TradePayment.builder().id(3L).tradeId(2L).type(AccountType.BUYER).amount(BigDecimal.valueOf(1000)).paymentDate(LocalDate.now()).build();
+        TradePayment tradePayment4 = TradePayment.builder().id(4L).tradeId(2L).type(AccountType.VENDOR).amount(BigDecimal.valueOf(1250)).paymentDate(LocalDate.now()).build();
+        List<TradePayment> tradePayments = List.of(tradePayment1, tradePayment2, tradePayment3, tradePayment4);
 
         when(getTradesPort.getAllTrades()).thenReturn(CompletableFuture.completedFuture(trades));
-        when(getPaymentsPort.getAllPayments()).thenReturn(CompletableFuture.completedFuture(payments));
+        when(getPaymentsPort.getAllPayments()).thenReturn(CompletableFuture.completedFuture(tradePayments));
 
         // When
-        CompletableFuture<List<TradeCalculationDto>> resultFuture = tradeCalculationService.getTradeCalculations();
+        CompletableFuture<List<TradeCalculationDto>> resultFuture = tradeCalculationsService.getTradeCalculations();
         List<TradeCalculationDto> result = resultFuture.get();
 
         // Then

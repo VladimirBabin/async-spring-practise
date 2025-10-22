@@ -8,10 +8,10 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-public class Payment {
+public class TradePayment {
     private Long id;
     private Long tradeId;
-    private PaymentType type;
+    private AccountType type;
     private BigDecimal amount;
     private String currency;
     private LocalDate paymentDate;
