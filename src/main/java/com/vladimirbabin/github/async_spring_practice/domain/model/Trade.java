@@ -4,14 +4,12 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @Builder
-@Validated
 public class Trade {
 
     private Long id;
@@ -20,7 +18,7 @@ public class Trade {
     private Long buyingAccountId;
 
     @NotNull
-    private Long vendorAccountId;
+    private Long sellingAccountId;
 
     @NotNull
     @NotEmpty
