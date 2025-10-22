@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedBy;
@@ -28,16 +30,22 @@ public class TradeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private Long buyingAccountId;
 
+    @NotNull
     private Long sellingAccountId;
 
+    @NotNull
+    @NotEmpty
     private String productName;
 
     private int productQuantity;
 
+    @NotNull
     private BigDecimal productBuyingPrice;
 
+    @NotNull
     private BigDecimal productSellingPrice;
 
     @CreatedBy
