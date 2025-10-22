@@ -1,8 +1,8 @@
 package com.vladimirbabin.github.async_spring_practice.adapters.out.hardcoded;
 
 import com.vladimirbabin.github.async_spring_practice.application.ports.out.GetPaymentsPort;
-import com.vladimirbabin.github.async_spring_practice.domain.model.Payment;
-import com.vladimirbabin.github.async_spring_practice.domain.model.PaymentType;
+import com.vladimirbabin.github.async_spring_practice.domain.model.TradePayment;
+import com.vladimirbabin.github.async_spring_practice.domain.model.AccountType;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -19,7 +19,7 @@ public class PaymentHardcodedAdapter implements GetPaymentsPort {
 
     @Async
     @Override
-    public CompletableFuture<List<Payment>> getAllPayments() {
+    public CompletableFuture<List<TradePayment>> getAllPayments() {
         return CompletableFuture.completedFuture(
                 LongStream.rangeClosed(1, 10)
                         .boxed()
@@ -27,46 +27,46 @@ public class PaymentHardcodedAdapter implements GetPaymentsPort {
                             LocalDate paymentDate = LocalDate.now().minusDays(tradeId);
                             return Stream.of(
                                     // Positive balance
-                                    Payment.builder().id(tradeId * 2 - 1).tradeId(tradeId)
-                                            .type(PaymentType.BUYER)
+                                    TradePayment.builder().id(tradeId * 2 - 1).tradeId(tradeId)
+                                            .type(AccountType.BUYER)
                                             .amount(BigDecimal.valueOf(1500))
                                             .currency("USD")
                                             .paymentDate(paymentDate)
                                             .build(),
-                                    Payment.builder()
+                                    TradePayment.builder()
                                             .id(tradeId * 2)
                                             .tradeId(tradeId)
-                                            .type(PaymentType.VENDOR)
+                                            .type(AccountType.VENDOR)
                                             .amount(BigDecimal.valueOf(1000))
                                             .currency("USD")
                                             .paymentDate(paymentDate).build(),
                                     // Negative balance
-                                    Payment.builder()
+                                    TradePayment.builder()
                                             .id(tradeId * 2 - 1)
                                             .tradeId(tradeId + 10)
-                                            .type(PaymentType.BUYER)
+                                            .type(AccountType.BUYER)
                                             .amount(BigDecimal.valueOf(1000))
                                             .currency("USD")
                                             .paymentDate(paymentDate).build(),
-                                    Payment.builder()
+                                    TradePayment.builder()
                                             .id(tradeId * 2)
                                             .tradeId(tradeId + 10)
-                                            .type(PaymentType.VENDOR)
+                                            .type(AccountType.VENDOR)
                                             .amount(BigDecimal.valueOf(1500))
                                             .currency("USD")
                                             .paymentDate(paymentDate).build(),
                                     // Zero balance
-                                    Payment.builder()
+                                    TradePayment.builder()
                                             .id(tradeId * 2 - 1)
                                             .tradeId(tradeId + 20)
-                                            .type(PaymentType.BUYER)
+                                            .type(AccountType.BUYER)
                                             .amount(BigDecimal.valueOf(1000))
                                             .currency("USD")
                                             .paymentDate(paymentDate).build(),
-                                    Payment.builder()
+                                    TradePayment.builder()
                                             .id(tradeId * 2)
                                             .tradeId(tradeId + 20)
-                                            .type(PaymentType.VENDOR)
+                                            .type(AccountType.VENDOR)
                                             .amount(BigDecimal.valueOf(1000))
                                             .currency("USD")
                                             .paymentDate(paymentDate).build()

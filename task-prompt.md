@@ -52,7 +52,7 @@
         - `TradeCalculationUseCase`: Defines the method to get trade calculations, e.g., `List<TradeCalculationDto> getTradeCalculations();`.
     - Create an `application/ports/out` package for outbound ports.
         - `GetTradesPort`: Defines a method to fetch all trades, e.g., `CompletableFuture<List<Trade>> getAllTrades();`.
-        - `GetPaymentsPort`: Defines a method to fetch all payments, e.g., `CompletableFuture<List<Payment>> getAllPayments();`.
+        - `GetPaymentsPort`: Defines a method to fetch all tradePayments, e.g., `CompletableFuture<List<Payment>> getAllPayments();`.
 
 ### 3.2. Application (Use Case Implementation)
 
@@ -64,10 +64,10 @@
         2.  The service implementation itself should be annotated with `@Service`.
         3.  The `getTradeCalculations` method should call the port methods asynchronously.
         4.  Wait for both `CompletableFuture` results to complete.
-        5.  Process the lists of trades and payments to calculate the required DTOs:
+        5.  Process the lists of trades and tradePayments to calculate the required DTOs:
             - `grossProfit` = `product_quantity * product_buying_price`
             - `costOfGoods` = `product_quantity * product_selling_price`
-            - `balance` = `sum(buyer payments for trade) - sum(vendor payments for trade)`
+            - `balance` = `sum(buyer tradePayments for trade) - sum(vendor tradePayments for trade)`
         6.  Return the list of `TradeCalculationDto`.
 
 ### 3.3. Adapters (Infrastructure)
@@ -95,9 +95,9 @@
         - It will return a hardcoded `List<Payment>`.
         - The method should be annotated with `@Async`.
         - Provide sample payment data for trade IDs 1 through 10, ensuring a mix of scenarios:
-            - Positive balance (buyer payments > vendor payments)
-            - Negative balance (buyer payments < vendor payments)
-            - Zero balance (buyer payments = vendor payments)
+            - Positive balance (buyer tradePayments > vendor tradePayments)
+            - Negative balance (buyer tradePayments < vendor tradePayments)
+            - Zero balance (buyer tradePayments = vendor tradePayments)
 
 ## 4. Testing
 

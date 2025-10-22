@@ -48,7 +48,7 @@ Validation Checklist
    Calculation Logic: Crucially, verify the formulas used for the calculations are exactly as specified:
    grossProfit = product_quantity * product_buying_price
    costOfGoods = product_quantity * product_selling_price
-   balance = sum of buyer payments for a given trade - sum of vendor payments for that same trade
+   balance = sum of buyer tradePayments for a given trade - sum of vendor tradePayments for that same trade
    3.4. Adapters (Infrastructure):
    Inbound Adapter (Web):
    Find the TradeDashboardController in an adapters/in/web package.

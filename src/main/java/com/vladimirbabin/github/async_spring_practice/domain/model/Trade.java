@@ -1,19 +1,39 @@
 package com.vladimirbabin.github.async_spring_practice.domain.model;
 
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
 public class Trade {
+
     private Long id;
+
+    @NotNull
     private Long buyingAccountId;
-    private Long vendorAccountId;
+
+    @NotNull
+    private Long sellingAccountId;
+
+    @NotNull
+    @NotEmpty
     private String productName;
+
     private int productQuantity;
+
+    @NotNull
     private BigDecimal productBuyingPrice;
+
+    @NotNull
     private BigDecimal productSellingPrice;
-    // TODO: add createdDate
+
+    private Integer createdBy;
+    private Integer modifiedBy;
+    private LocalDateTime createdDate;
+    private LocalDateTime modifiedDate;
 }
