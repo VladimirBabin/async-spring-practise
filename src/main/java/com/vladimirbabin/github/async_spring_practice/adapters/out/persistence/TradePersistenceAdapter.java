@@ -1,5 +1,6 @@
 package com.vladimirbabin.github.async_spring_practice.adapters.out.persistence;
 
+import com.vladimirbabin.github.async_spring_practice.adapters.out.persistence.mapper.TradeMapper;
 import com.vladimirbabin.github.async_spring_practice.application.ports.out.GetTradesPort;
 import com.vladimirbabin.github.async_spring_practice.domain.model.Trade;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 public class TradePersistenceAdapter implements GetTradesPort {
 
     private final TradeRepository tradeRepository;
+    private final TradeMapper tradeMapper;
 
     // TODO: try supply async with custom executor
     // TODO: try flux in a separate git branch (return flux instead of CompletableFuture)
@@ -25,20 +27,9 @@ public class TradePersistenceAdapter implements GetTradesPort {
     public CompletableFuture<List<Trade>> getAllTrades() {
         return CompletableFuture.completedFuture(
                 tradeRepository.findAll().stream()
-                        .map(this::toDomain)
+                        .map(tradeMapper::toDomain)
                         .collect(Collectors.toList())
         );
     }
 
-    private Trade toDomain(TradeEntity entity) {
-        return Trade.builder()
-                .id(entity.getId())
-                .buyingAccountId(entity.getBuyingAccountId())
-                .vendorAccountId(entity.getVendorAccountId())
-                .productName(entity.getProductName())
-                .productQuantity(entity.getProductQuantity())
-                .productBuyingPrice(entity.getProductBuyingPrice())
-                .productSellingPrice(entity.getProductSellingPrice())
-                .build();
-    }
 }
